@@ -147,7 +147,7 @@ const BasicInformationForm: React.FC = () => {
                 <div className="mt-8 flex justify-end">
                     <button
                         type="submit"
-                        className="px-6 py-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-600"
+                        className="px-6 py-2 bg-blue-500 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-600"
                     >
                         Next
                     </button>
