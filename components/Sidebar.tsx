@@ -40,8 +40,8 @@ const Sidebar: React.FC = () => {
             <div className="pl-12 bg-purple-50">
               <ListItem href="/members/addmember" icon="addmember" label="Add Member" />
               <ListItem href="/members/addchild" icon="addmember" label="Add Child" />
-              <ListItem href="/members/family" icon="family" label="Create Family" />
-              <ListItem href="/members/family/list" icon="list" label="All Families" />
+              <ListItem href="/members/createfamily" icon="family" label="Create Family" />
+              <ListItem href="/members/listfamily" icon="list" label="All Families" />
             </div>
           )}
         </div>
