@@ -5,7 +5,7 @@ const BasicInformationForm: React.FC = () => {
         <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold mb-6 text-center">Basic Information</h2>
             <form>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-8 gap-6">
                     {/* Title */}
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Title</label>
@@ -15,7 +15,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Full Name */}
-                    <div>
+                    <div className='col-span-3'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Full Name</label>
                         <input
                             type="text"
@@ -25,7 +25,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Birth Date */}
-                    <div>
+                    <div className="col-span-2">
                         <label className="block mb-2 text-sm font-medium text-gray-700">Birth Date</label>
                         <input
                             type="date"
@@ -35,7 +35,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Gender */}
-                    <div>
+                    <div className='col-span-2'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Gender</label>
                         <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option>Gender</option>
@@ -43,9 +43,9 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Mobile Number */}
-                    <div className="flex items-center space-x-2">
+                    <div className="col-span-4 flex items-center space-x-2">
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-700">Country Code</label>
+                            <label className="block mb-2 text-sm font-medium text-gray-700">Code</label>
                             <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                                 <option>+1</option>
                             </select>
@@ -61,7 +61,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Email Address */}
-                    <div>
+                    <div className='col-span-4'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Email Address</label>
                         <input
                             type="email"
@@ -71,7 +71,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Disabilities */}
-                    <div>
+                    <div className='col-span-8'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Do you have disabilities?</label>
                         <div className="flex items-center space-x-4">
                             <label className="flex items-center">
@@ -86,7 +86,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Description */}
-                    <div className="md:col-span-2">
+                    <div className="md:col-span-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700">Description</label>
                         <textarea
                             placeholder="Add some description of the project"
@@ -96,7 +96,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Upload Photo */}
-                    <div className="md:col-span-2">
+                    <div className="md:col-span-4">
                         <label className="block mb-2 text-sm font-medium text-gray-700">Upload Photo</label>
                         <div className="flex items-center">
                             <input
@@ -108,7 +108,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Sub City */}
-                    <div>
+                    <div className='col-span-2'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Sub City</label>
                         <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option>Sub City</option>
@@ -116,7 +116,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Woreda */}
-                    <div>
+                    <div className='col-span-2'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Woreda</label>
                         <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                             <option>Woreda</option>
@@ -124,7 +124,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* House Number */}
-                    <div>
+                    <div className='col-span-2'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">House Number</label>
                         <input
                             type="text"
@@ -134,7 +134,7 @@ const BasicInformationForm: React.FC = () => {
                     </div>
 
                     {/* Unique Name */}
-                    <div>
+                    <div className='col-span-2'>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Unique Name</label>
                         <input
                             type="text"
