@@ -1,11 +1,12 @@
 import React from 'react';
+import { SelectDate } from '../FormComponents/SelectForm';
 
 const BasicInformationForm: React.FC = () => {
     return (
         <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold mb-6 text-center">Basic Information</h2>
             <form>
-                <div className="grid grid-cols-1 md:grid-cols-8 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
                     {/* Title */}
                     <div>
                         <label className="block mb-2 text-sm font-medium text-gray-700">Title</label>
@@ -26,6 +27,7 @@ const BasicInformationForm: React.FC = () => {
 
                     {/* Birth Date */}
                     <div className="col-span-2">
+                        {/* <SelectDate/> */}
                         <label className="block mb-2 text-sm font-medium text-gray-700">Birth Date</label>
                         <input
                             type="date"
