@@ -24,3 +24,5 @@ const FamilySchema = new mongoose.Schema({
 });
 
 const family = mongoose.model("Family", FamilySchema, "families");
+
+export default family;
