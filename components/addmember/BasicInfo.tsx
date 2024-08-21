@@ -1,5 +1,4 @@
 import React from 'react';
-import { SelectDate } from '../FormComponents/SelectForm';
 
 const BasicInformationForm: React.FC = () => {
     return (
