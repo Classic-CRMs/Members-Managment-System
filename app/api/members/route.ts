@@ -9,6 +9,6 @@ export async function GET(req: Request) {
     return NextResponse.json(members);
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({error: `Error fetching members ${error}`});
   }
 }

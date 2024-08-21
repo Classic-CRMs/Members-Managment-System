@@ -10,6 +10,6 @@ export async function GET() {
     return NextResponse.json(endpoints);
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json({error: `Error fetching ${error}`});
   }
 }

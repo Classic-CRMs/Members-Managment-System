@@ -10,6 +10,6 @@ export async function POST(req: Request) {
     return NextResponse.json(newMember);
   } catch (error) {
     console.error("Error saving new member:", error);
-    return NextResponse.error();
+    return NextResponse.json({error: `Error saving new member ${error}`});
   }
 }

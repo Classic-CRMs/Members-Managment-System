@@ -7,8 +7,13 @@ export async function GET(
   req: NextApiRequest,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
-  await dbConnect();
-  const member = await Member.findOne({ _id: id });
-  return NextResponse.json(member);
+  try {
+    const { id } = params;
+    await dbConnect();
+    const member = await Member.findOne({ _id: id });
+    return NextResponse.json(member);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: `Error fetching member ${error}` });
+  }
 }
