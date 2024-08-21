@@ -19,3 +19,25 @@ export interface utilPropType {
   href: any;
   className: string;
 }
+
+export interface memberType {
+  title: string;
+  fullname: string;
+  sex: "Male" | "Female";
+  address: {
+    subcity: string;
+    district: number;
+    homeno?: string;
+    neighborhood?: string;
+  };
+  contact: {
+    homephone?: string;
+    personalphone: string;
+    email?: string;
+  };
+  handicap: {
+    has_handicap: boolean;
+    handicap_type?: string;
+  };
+  birthdate: string;
+}
