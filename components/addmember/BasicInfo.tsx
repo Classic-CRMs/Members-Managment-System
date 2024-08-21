@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
-import { genderType, titleType } from "@/types/types";
+// import { useRouter } from "next/router";
+import { genderType, memberType, titleType } from "@/types/types";
 const BasicInformationForm: React.FC = () => {
-  const [title, setTitle] = useState<titleType>("");
+  //   const router = useRouter();
+  const [title, setTitle] = useState<titleType>("Mr.");
   const [fullName, setFullName] = useState<string>("");
   const [birthDate, setBirthDate] = useState<string>("");
-  const [gender, setGender] = useState<genderType | "">("Male");
+  const [gender, setGender] = useState<genderType>("Male");
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [disabilities, setDisabilities] = useState<boolean>(false);
@@ -16,12 +18,48 @@ const BasicInformationForm: React.FC = () => {
   const [houseNumber, setHouseNumber] = useState<string>("");
   const [uniqueName, setUniqueName] = useState<string>("");
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newMember: memberType = {
+      title,
+      fullname: fullName,
+      birthdate: birthDate,
+      sex: gender,
+      contact: { homephone: houseNumber, personalphone: mobileNumber, email },
+      handicap: { has_handicap: disabilities, handicap_type: description },
+      address: {
+        subcity: subCity,
+        district: woreda,
+        homeno: houseNumber,
+        neighborhood: uniqueName,
+      },
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/members/new", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newMember),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add a Member");
+      } else {
+        console.log("Member added successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-semibold mb-6 text-center">
         Basic Information
       </h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
           {/* Title */}
           <div>
@@ -288,12 +326,11 @@ const BasicInformationForm: React.FC = () => {
             type="submit"
             className="px-6 py-2 bg-blue-500 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-600"
           >
-            Next
+            Submit
           </button>
         </div>
       </form>
     </div>
   );
 };
-
 export default BasicInformationForm;

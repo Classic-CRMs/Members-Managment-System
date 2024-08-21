@@ -26,7 +26,7 @@ export interface memberType {
   sex: "Male" | "Female";
   address: {
     subcity: string;
-    district: number;
+    district: string;
     homeno?: string;
     neighborhood?: string;
   };
