@@ -1,3 +1,4 @@
+import exp from "constants";
 import mongoose from "mongoose";
 
 const ChildSchema = new mongoose.Schema({
@@ -43,6 +44,7 @@ const ChildSchema = new mongoose.Schema({
   },
 });
 
-const child = mongoose.model("Child", ChildSchema, "children");
+const Child =
+  mongoose.models.Child || mongoose.model("Child", ChildSchema, "children");
 
-export default child;
+export default Child;

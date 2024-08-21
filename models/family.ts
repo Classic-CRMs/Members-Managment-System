@@ -23,6 +23,8 @@ const FamilySchema = new mongoose.Schema({
   },
 });
 
-const family = mongoose.model("Family", FamilySchema, "families");
+const Family =
+  mongoose.models.Family || mongoose.model("Family", FamilySchema, "Family");
 
-export default family;
+
+export default Family;
