@@ -2,9 +2,7 @@ import mongoose from "mongoose";
 
 const memberSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  firstname: { type: String, required: true },
-  middlename: { type: String, required: true },
-  lastname: { type: String, required: true },
+  fullname: { type: String, required: true },
   sex: { type: String, enum: ["Male", "Female"], required: true },
   address: {
     subcity: { type: String, required: true },
@@ -22,27 +20,8 @@ const memberSchema = new mongoose.Schema({
     handicap_type: { type: String },
   },
   birthdate: {
-    date: { type: Number, required: true },
-    month: { type: Number, required: true },
-    year: { type: Number, required: true },
-  },
-  education: [
-    {
-      field: { type: String, required: true },
-      level: { type: String, required: true },
-    },
-  ],
-  workinfo: [
-    {
-      work_type: { type: String, required: true },
-      place: { type: String, required: true },
-      responsibility: { type: String, required: true },
-      profession: { type: String, required: true },
-      talent: { type: String, required: true },
-    },
-  ],
-  unioninfo: {
-    area: { type: String, required: true },
+    type: String,
+    required: true,
   },
 });
 

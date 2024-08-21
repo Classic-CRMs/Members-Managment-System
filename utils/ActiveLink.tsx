@@ -2,14 +2,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { utilPropType } from "@/types/types";
 
-interface UtilProp {
-  children: React.ReactNode;
-  href: any;
-  className: string;
-}
-
-const ActiveLink: React.FC<UtilProp> = ({ children, href, className }) => {
+const ActiveLink: React.FC<utilPropType> = ({ children, href, className }) => {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   console.log(router)
