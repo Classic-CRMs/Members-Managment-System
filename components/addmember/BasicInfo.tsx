@@ -1,5 +1,4 @@
 import React from 'react';
-import { SelectDate } from '../FormComponents/SelectForm';
 
 const BasicInformationForm: React.FC = () => {
     return (
@@ -9,8 +8,8 @@ const BasicInformationForm: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
                     {/* Title */}
                     <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">Title</label>
-                        <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label htmlFor='title' className="block mb-2 text-sm font-medium text-gray-700">Title</label>
+                        <select id='title' name='title' className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                             <option>Title</option>
                         </select>
                     </div>
@@ -21,7 +20,7 @@ const BasicInformationForm: React.FC = () => {
                         <input
                             type="text"
                             placeholder="Full Name"
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                         />
                     </div>
 
@@ -32,14 +31,14 @@ const BasicInformationForm: React.FC = () => {
                         <input
                             type="date"
                             placeholder="Birth Date"
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                         />
                     </div>
 
                     {/* Gender */}
                     <div className='col-span-2'>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">Gender</label>
-                        <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label htmlFor='gender' className="block mb-2 text-sm font-medium text-gray-700">Gender</label>
+                        <select id='gender' name='gender' className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                             <option>Gender</option>
                         </select>
                     </div>
@@ -47,9 +46,9 @@ const BasicInformationForm: React.FC = () => {
                     {/* Mobile Number */}
                     <div className="col-span-4 flex items-center space-x-2">
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-gray-700">Code</label>
-                            <select className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                                <option>+1</option>
+                            <label htmlFor='code' className="block mb-2 text-sm font-medium text-gray-700">Code</label>
+                            <select id='code' name='code' className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                                <option>+251</option>
                             </select>
                         </div>
                         <div className="flex-1">
@@ -57,7 +56,7 @@ const BasicInformationForm: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="345 567-23-56"
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                             />
                         </div>
                     </div>
@@ -68,7 +67,7 @@ const BasicInformationForm: React.FC = () => {
                         <input
                             type="email"
                             placeholder="youremail@gmail.com"
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                         />
                     </div>
 
@@ -92,7 +91,7 @@ const BasicInformationForm: React.FC = () => {
                         <label className="block mb-2 text-sm font-medium text-gray-700">Description</label>
                         <textarea
                             placeholder="Add some description of the project"
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                             rows={4}
                         ></textarea>
                     </div>
@@ -103,7 +102,7 @@ const BasicInformationForm: React.FC = () => {
                         <div className="flex items-center">
                             <input
                                 type="file"
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2 border outline-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                                 accept=".jpg,.png"
                             />
                         </div>
@@ -111,16 +110,16 @@ const BasicInformationForm: React.FC = () => {
 
                     {/* Sub City */}
                     <div className='col-span-2'>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">Sub City</label>
-                        <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label htmlFor='subcity' className="block mb-2 text-sm font-medium text-gray-700">Sub City</label>
+                        <select id='subcity' name='subcity' className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                             <option>Sub City</option>
                         </select>
                     </div>
 
                     {/* Woreda */}
                     <div className='col-span-2'>
-                        <label className="block mb-2 text-sm font-medium text-gray-700">Woreda</label>
-                        <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <label htmlFor='district' className="block mb-2 text-sm font-medium text-gray-700">Woreda</label>
+                        <select id='district' name='district' className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                             <option>Woreda</option>
                         </select>
                     </div>
@@ -131,7 +130,7 @@ const BasicInformationForm: React.FC = () => {
                         <input
                             type="text"
                             placeholder="H Num"
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2  focus:ring-blue-500 outline-none"
                         />
                     </div>
 
