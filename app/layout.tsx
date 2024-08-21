@@ -19,13 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex">
-        <Sidebar/>
-        <div className="flex-1 justify-center items-center">
-
-        {children}
-        </div>
+          <Sidebar />
+          <div className="flex-1 justify-between items-center">{children}</div>
         </div>
       </body>
     </html>
+
   );
 }
