@@ -54,7 +54,7 @@ const BasicInformationForm: React.FC = () => {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to add a Member");
+        throw new Error("Failed to add a Child");
       } else {
         console.log("Child added successfully");
       }
