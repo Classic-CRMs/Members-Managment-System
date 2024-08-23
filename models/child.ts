@@ -1,8 +1,7 @@
-import exp from "constants";
 import mongoose from "mongoose";
 
 const ChildSchema = new mongoose.Schema({
-  fullName: {
+  fullname: {
     type: String,
     required: true,
   },
@@ -26,7 +25,7 @@ const ChildSchema = new mongoose.Schema({
   grade: { type: String, required: true },
   family_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Family",
+    // ref: "Family",
   },
 });
 
