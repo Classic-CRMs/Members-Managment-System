@@ -35,7 +35,6 @@ const BasicInformationForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const image = await uploadImage(photo!);
-    console.log(image);
     const newChild: childType = {
       fullname: fullName,
       birthdate: birthDate,

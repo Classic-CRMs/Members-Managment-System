@@ -20,7 +20,6 @@ export async function GET(
       return NextResponse.json({ error: "Invalid Member Id" }, { status: 400 });
     }
     const member = await Member.findOne({ _id: id });
-    console.log(`member: ${member}`);
     if (!member) {
       return NextResponse.json(
         { error: "Member with this Id not found" },
