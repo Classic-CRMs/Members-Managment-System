@@ -12,7 +12,7 @@ interface ListItemProps {
   isChevOpen?: boolean;
 }
 
-const ListItem: React.FC<ListItemProps> = ({
+const NestedList: React.FC<ListItemProps> = ({
   icon,
   label,
   href,
@@ -23,8 +23,8 @@ const ListItem: React.FC<ListItemProps> = ({
   return (
     <Link
       href={href}
-      className={`py-2 px-4 flex items-center text-gray-600 rounded-lg hover:bg-purple-50 ${
-        isActive && "bg-[#5932EA] hover:bg-[#5932EA] text-white"
+      className={`py-2 px-2 mb-2 flex items-center text-gray-600 rounded-lg hover:bg-purple-50 ${
+        isActive && "bg-[#EEEAFD] hover:bg-[#EEEAFD] border-r-8 border-purple-900"
       }`}
     >
       <span className="w-5 h-5 mr-3 flex items-center justify-center">
@@ -45,4 +45,4 @@ const ListItem: React.FC<ListItemProps> = ({
   );
 };
 
-export default ListItem;
+export default NestedList;
