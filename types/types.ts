@@ -54,4 +54,5 @@ export interface childType {
   sunday_school_class: string;
   dvbs_class: string;
   grade: string;
+  image: string | undefined;
 }
