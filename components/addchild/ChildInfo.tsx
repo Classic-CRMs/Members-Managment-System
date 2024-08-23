@@ -2,9 +2,7 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { childType, genderType } from "@/types/types";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "@/config/firebase";
-import { v4 as uuidv4 } from "uuid";
+import uploadImage from "@/utils/imageUploader";
 
 const BasicInformationForm: React.FC = () => {
   const [fullName, setFullName] = useState<string>("");
@@ -32,19 +30,7 @@ const BasicInformationForm: React.FC = () => {
     },
     maxFiles: 1,
   });
-  const uploadImage = async (file: File) => {
-    if (!file) return;
-
-    const uniqueName = `${uuidv4()}${file.name.substring(
-      file.name.lastIndexOf(".")
-    )}`;
-    const storageRef = ref(storage, `images/${uniqueName}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    const image = await getDownloadURL(snapshot.ref);
-    console.log("Image uploaded successfully");
-    console.log(image);
-    return image;
-  };
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
