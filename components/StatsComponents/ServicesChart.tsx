@@ -1,66 +1,39 @@
-'use client'
+"use client"
 import React from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
   Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+  ResponsiveContainer,
+} from 'recharts';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+const data = [
+  { month: 'Jan', value: 30 },
+  { month: 'Feb', value: 40 },
+  { month: 'Mar', value: 50 },
+  { month: 'Apr', value: 35 },
+  { month: 'May', value: 25 },
+  { month: 'Jun', value: 35 },
+  { month: 'Jul', value: 40 },
+  { month: 'Aug', value: 60 },
+  { month: 'Sep', value: 45 },
+  { month: 'Oct', value: 40 },
+  { month: 'Nov', value: 30 },
+  { month: 'Dec', value: 45 },
+];
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    title: {
-      display: false,
-    },
-    tooltip: {
-      enabled: false,
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      display: false,
-      beginAtZero: true,
-    },
-  },
-};
+const CustomBar = (props: any) => {
+  const { x, y, width, height, index } = props;
+  const fill = index === 7 ? '#6633ff' : '#e6e6fa';
+  const radius = 5;
 
-const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      data: [30, 40, 50, 35, 25, 35, 40, 60, 45, 40, 30, 45],
-      backgroundColor: (context: any) => {
-        const index = context.dataIndex;
-        return index === 7 ? 'rgba(102, 51, 255, 1)' : 'rgba(230, 230, 250, 1)';
-      },
-      borderRadius: 5,
-      borderSkipped: false,
-    },
-  ],
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} fill={fill} rx={radius} ry={radius} />
+    </g>
+  );
 };
 
 const ServicesChart: React.FC = () => {
@@ -75,11 +48,27 @@ const ServicesChart: React.FC = () => {
           <option>Quarterly</option>
         </select>
       </div>
-      <div className="relative">
-        <Bar options={options} data={data} height={200} />
-        <div className="absolute top-8 right-32 bg-black text-white px-2 py-1 rounded-md text-sm">
-          <span className="text-green-400">↗</span> 35%
-        </div>
+      <div className="relative" style={{ height: '200px' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <XAxis dataKey="month" axisLine={false} tickLine={false} />
+            <YAxis hide />
+            <Tooltip
+              cursor={false}
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-black text-white px-2 py-1 rounded-md text-sm">
+                      <span className="text-green-400">↗</span> 35%
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Bar dataKey="value" shape={<CustomBar />} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

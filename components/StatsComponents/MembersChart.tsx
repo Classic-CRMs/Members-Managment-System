@@ -1,89 +1,26 @@
 "use client"
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
-);
+const data = [
+  { day: '10', members: 85000 },
+  { day: '11', members: 42000 },
+  { day: '12', members: 65000 },
+  { day: '13', members: 42000 },
+  { day: '14', members: 55000 },
+  { day: '15', members: 55000 },
+  { day: '16', members: 83234 },
+  { day: '17', members: 45000 },
+  { day: '18', members: 50000 },
+  { day: '19', members: 70000 },
+  { day: '20', members: 65000 },
+  { day: '21', members: 60000 },
+  { day: '22', members: 48000 },
+  { day: '23', members: 62000 },
+  { day: '24', members: 59000 },
+];
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    title: {
-      display: false,
-    },
-    tooltip: {
-      mode: 'index' as const,
-      intersect: false,
-      callbacks: {
-        label: function(context: any) {
-          let label = context.dataset.label || '';
-          if (label) {
-            label += ': ';
-          }
-          if (context.parsed.y !== null) {
-            label += new Intl.NumberFormat('en-US').format(context.parsed.y);
-          }
-          return label;
-        }
-      }
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      beginAtZero: true,
-      ticks: {
-        callback: function(value: any) {
-          return value / 1000 + 'K';
-        },
-      },
-      max: 100000,
-    },
-  },
-};
-
-const labels = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      label: 'Members',
-      data: [45000, 42000, 65000, 42000, 55000, 55000, 83234, 45000, 50000, 70000, 65000, 60000, 48000, 62000, 59000],
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
-const MembersChart: React.FC = () => {
+const MembersChart = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-4">
@@ -92,7 +29,34 @@ const MembersChart: React.FC = () => {
           <option>This Month</option>
         </select>
       </div>
-      <Line options={options} data={data} />
+      <ResponsiveContainer width="100%" height={300}>
+        <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="colorMembers" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="day" />
+          <YAxis 
+            tickFormatter={(value) => `${value / 1000}K`}
+            domain={[20000, 100000]}
+            ticks={[20000, 40000, 60000, 80000, 100000]}
+          />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <Tooltip 
+            formatter={(value) => [`${value.toLocaleString()}`, 'Members']}
+            labelFormatter={(label) => `Day ${label}`}
+          />
+          <Area 
+            type="monotone" 
+            dataKey="members" 
+            stroke="#8884d8" 
+            fillOpacity={1} 
+            fill="url(#colorMembers)" 
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   );
 };
