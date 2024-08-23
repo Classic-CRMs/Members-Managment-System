@@ -5,7 +5,9 @@ export async function GET() {
     const endpoints = {
       "GET:/api/members": "List all members",
       "GET:/api/members/:id": "Get a member by ID",
-      "POST:/api/members/add": "Create a new member",
+      "POST:/api/members/new": "Add new member",
+      "GET:/api/children": "List all children",
+      "POST:/api/children/new": "Add new child",
     };
     return NextResponse.json(endpoints);
   } catch (error) {
