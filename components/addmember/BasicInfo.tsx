@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 // import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import { genderType, memberType, titleType } from "@/types/types";
+import uploadImage from "@/utils/imageUploader";
 const BasicInformationForm: React.FC = () => {
   //   const router = useRouter();
   const [title, setTitle] = useState<titleType>("Mr.");
@@ -35,11 +36,14 @@ const BasicInformationForm: React.FC = () => {
   });
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const image = await uploadImage(photo!);
+  
     const newMember: memberType = {
       title,
       fullname: fullName,
       birthdate: birthDate,
       sex: gender,
+      image,
       contact: { homephone: houseNumber, personalphone: mobileNumber, email },
       handicap: { has_handicap: disabilities, handicap_type: description },
       address: {

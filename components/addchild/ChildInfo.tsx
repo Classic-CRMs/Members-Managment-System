@@ -2,6 +2,7 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { childType, genderType } from "@/types/types";
+import uploadImage from "@/utils/imageUploader";
 
 const BasicInformationForm: React.FC = () => {
   const [fullName, setFullName] = useState<string>("");
@@ -29,19 +30,23 @@ const BasicInformationForm: React.FC = () => {
     },
     maxFiles: 1,
   });
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const image = await uploadImage(photo!);
     const newChild: childType = {
       fullname: fullName,
       birthdate: birthDate,
       sex: gender,
+      image: image,
       handicap: { has_handicap: disabilities, handicap_type: description },
       family_id: familyID,
       sunday_school_class: sundaySchoolClass,
       dvbs_class: DVBSClass,
       grade: grade,
     };
+
     try {
       const res = await fetch("http://localhost:3000/api/children/new", {
         method: "POST",

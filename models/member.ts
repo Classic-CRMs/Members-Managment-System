@@ -15,6 +15,7 @@ const memberSchema = new mongoose.Schema({
     personalphone: { type: String, required: true },
     email: { type: String },
   },
+  image: { type: String,  required: true },
   handicap: {
     has_handicap: { type: Boolean, required: true },
     handicap_type: { type: String },

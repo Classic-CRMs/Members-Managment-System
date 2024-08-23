@@ -21,6 +21,7 @@ const ChildSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {type: String, required: true},
   dvbs_class: { type: String, required: true },
   grade: { type: String, required: true },
   family_id: {
