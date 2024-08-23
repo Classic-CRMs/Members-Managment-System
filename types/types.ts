@@ -35,6 +35,7 @@ export interface memberType {
     personalphone: string;
     email?: string;
   };
+  image: string | undefined;
   handicap: {
     has_handicap: boolean;
     handicap_type?: string;
