@@ -42,8 +42,6 @@ const BasicInformationForm: React.FC = () => {
       dvbs_class: DVBSClass,
       grade: grade,
     };
-    console.log(newChild);
-    console.log("Photo:", photo);
     try {
       const res = await fetch("http://localhost:3000/api/children/new", {
         method: "POST",
