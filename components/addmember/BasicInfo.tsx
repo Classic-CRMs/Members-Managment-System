@@ -77,10 +77,10 @@ const BasicInformationForm: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
           {/* Title */}
-          <div>
+          <div className="relative inline-block">
             <label
               htmlFor="title"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block my-2 text-sm font-medium text-gray-700"
             >
               Title
             </label>
@@ -89,7 +89,8 @@ const BasicInformationForm: React.FC = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value as titleType)}
               name="title"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              // bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
             >
               <option value="Mr.">Mr.</option>
               <option value="Mrs.">Mrs.</option>
@@ -101,11 +102,20 @@ const BasicInformationForm: React.FC = () => {
               <option value="Madam">Madam</option>
               <option value="Rev.">Rev.</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M7 10l5 5 5-5H7z" />
+              </svg>
+            </div>
           </div>
 
           {/* Full Name */}
           <div className="col-span-3">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Full Name
             </label>
             <input
@@ -113,14 +123,14 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFullName(e.target.value)}
               type="text"
               placeholder="Full Name"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
           {/* Birth Date */}
           <div className="col-span-2">
             {/* <SelectDate/> */}
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Birth Date
             </label>
             <input
@@ -128,15 +138,15 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setBirthDate(e.target.value)}
               type="date"
               placeholder="Birth Date"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
           {/* Gender */}
-          <div className="col-span-2">
+          <div className="col-span-2 relative inline-block">
             <label
               htmlFor="gender"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block my-2 text-sm font-medium text-gray-700"
             >
               Gender
             </label>
@@ -145,32 +155,50 @@ const BasicInformationForm: React.FC = () => {
               name="gender"
               value={gender}
               onChange={(e) => setGender(e.target.value as genderType)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M7 10l5 5 5-5H7z" />
+              </svg>
+            </div>
           </div>
 
           {/* Mobile Number */}
           <div className="col-span-4 flex items-center space-x-2">
-            <div>
+            <div className="relative inline-block">
               <label
                 htmlFor="code"
-                className="block mb-2 text-sm font-medium text-gray-700"
+                className="block my-2 text-sm font-medium text-gray-700"
               >
                 Code
               </label>
               <select
                 id="code"
                 name="code"
-                className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
               >
                 <option>+251</option>
               </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M7 10l5 5 5-5H7z" />
+                </svg>
+              </div>
             </div>
             <div className="flex-1">
-              <label className="block mb-2 text-sm font-medium text-gray-700">
+              <label className="block my-2 text-sm font-medium text-gray-700">
                 Mobile Number
               </label>
               <input
@@ -178,14 +206,14 @@ const BasicInformationForm: React.FC = () => {
                 onChange={(e) => setMobileNumber(e.target.value)}
                 type="tel"
                 placeholder="345 567-23-56"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              />
+                className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+                />
             </div>
           </div>
 
           {/* Email Address */}
           <div className="col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Email Address
             </label>
             <input
@@ -193,13 +221,13 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="youremail@example.com"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
           {/* Disabilities */}
           <div className="col-span-8">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Do you have disabilities?
             </label>
             <div className="flex items-center space-x-4">
@@ -229,7 +257,7 @@ const BasicInformationForm: React.FC = () => {
           </div>
           {/* Description */}
           <div className="md:col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Description
             </label>
             <textarea
@@ -243,7 +271,7 @@ const BasicInformationForm: React.FC = () => {
 
           {/* Upload Photo - Updated to use react-dropzone */}
           <div className="md:col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Upload Photo
             </label>
             <div
@@ -264,10 +292,10 @@ const BasicInformationForm: React.FC = () => {
           </div>
 
           {/* Sub City */}
-          <div className="col-span-2">
+          <div className="col-span-2 relative inline-block">
             <label
               htmlFor="subcity"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block my-2 text-sm font-medium text-gray-700"
             >
               Sub City
             </label>
@@ -276,18 +304,27 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setSubCity(e.target.value)}
               id="subcity"
               name="subcity"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             >
               <option value="Yeka">Yeka</option>
               <option value="Arada">Arada</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M7 10l5 5 5-5H7z" />
+              </svg>
+            </div>
           </div>
 
           {/* Woreda */}
-          <div className="col-span-2">
+          <div className="col-span-2 relative inline-block">
             <label
               htmlFor="district"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block my-2 text-sm font-medium text-gray-700"
             >
               Woreda
             </label>
@@ -296,7 +333,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setWoreda(e.target.value)}
               id="district"
               name="district"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             >
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -313,11 +350,20 @@ const BasicInformationForm: React.FC = () => {
               <option value={13}>13</option>
               <option value={14}>14</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M7 10l5 5 5-5H7z" />
+              </svg>
+            </div>
           </div>
 
           {/* House Number */}
           <div className="col-span-2">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               House Number
             </label>
             <input
@@ -325,13 +371,13 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setHouseNumber(e.target.value)}
               type="text"
               placeholder="H Num"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2  focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
           {/* Unique Name */}
           <div className="col-span-2">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Unique Name
             </label>
             <input
@@ -339,7 +385,7 @@ const BasicInformationForm: React.FC = () => {
               value={uniqueName}
               onChange={(e) => setUniqueName(e.target.value)}
               placeholder="unique name"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
         </div>

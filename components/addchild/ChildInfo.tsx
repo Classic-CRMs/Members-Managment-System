@@ -78,7 +78,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFullName(e.target.value)}
               type="text"
               placeholder="Full Name"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
@@ -92,12 +92,12 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setBirthDate(e.target.value)}
               type="date"
               placeholder="Birth Date"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
           {/* Gender */}
-          <div className="col-span-2">
+          <div className="col-span-2 relative inline-block">
             <label
               htmlFor="gender"
               className="block mb-2 text-sm font-medium text-gray-700"
@@ -109,11 +109,20 @@ const BasicInformationForm: React.FC = () => {
               name="gender"
               value={gender}
               onChange={(e) => setGender(e.target.value as genderType)}
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 top-7 flex items-center align-middle px-2 text-gray-600">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M7 10l5 5 5-5H7z" />
+              </svg>
+            </div>
           </div>
 
           {/* Disabilities */}
@@ -157,7 +166,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFamilyID(e.target.value)}
               type="text"
               placeholder="Family ID"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
@@ -207,7 +216,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setSundaySchoolClass(e.target.value)}
               type="text"
               placeholder="Sunday School Class"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
@@ -221,7 +230,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setDVBSClass(e.target.value)}
               type="text"
               placeholder="DVBS class"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
 
@@ -235,7 +244,7 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setGrade(e.target.value)}
               type="text"
               placeholder="School Grade"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
             />
           </div>
         </div>
