@@ -28,7 +28,7 @@ const ChildSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     // ref: "Family",
   },
-});
+}, { timestamps: true });
 
 const Child =
   mongoose.models.Child || mongoose.model("Child", ChildSchema, "children");
