@@ -41,3 +41,17 @@ export interface memberType {
   };
   birthdate: string;
 }
+
+export interface childType {
+  fullname: string;
+  sex: "Male" | "Female";
+  birthdate: string;
+  handicap: {
+    has_handicap: boolean;
+    handicap_type?: string;
+  };
+  family_id: string;
+  sunday_school_class: string;
+  dvbs_class: string;
+  grade: string;
+}

@@ -1,22 +1,18 @@
 "use client";
-import { useCallback, useState } from "react";
-// import { useRouter } from "next/router";
+import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { genderType, memberType, titleType } from "@/types/types";
+import { childType, genderType } from "@/types/types";
+
 const BasicInformationForm: React.FC = () => {
-  //   const router = useRouter();
-  const [title, setTitle] = useState<titleType>("Mr.");
   const [fullName, setFullName] = useState<string>("");
   const [birthDate, setBirthDate] = useState<string>("");
   const [gender, setGender] = useState<genderType>("Male");
-  const [mobileNumber, setMobileNumber] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [familyID, setFamilyID] = useState<string>("");
   const [disabilities, setDisabilities] = useState<boolean>(false);
   const [description, setDescription] = useState<string>("");
-  const [subCity, setSubCity] = useState<string>("Yeka");
-  const [woreda, setWoreda] = useState<string>("1");
-  const [houseNumber, setHouseNumber] = useState<string>("");
-  const [uniqueName, setUniqueName] = useState<string>("");
+  const [sundaySchoolClass, setSundaySchoolClass] = useState<string>("");
+  const [DVBSClass, setDVBSClass] = useState<string>("");
+  const [grade, setGrade] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -33,40 +29,38 @@ const BasicInformationForm: React.FC = () => {
     },
     maxFiles: 1,
   });
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newMember: memberType = {
-      title,
+    const newChild: childType = {
       fullname: fullName,
       birthdate: birthDate,
       sex: gender,
-      contact: { homephone: houseNumber, personalphone: mobileNumber, email },
       handicap: { has_handicap: disabilities, handicap_type: description },
-      address: {
-        subcity: subCity,
-        district: woreda,
-        homeno: houseNumber,
-        neighborhood: uniqueName,
-      },
+      family_id: familyID,
+      sunday_school_class: sundaySchoolClass,
+      dvbs_class: DVBSClass,
+      grade: grade,
     };
+    console.log(newChild);
+    console.log("Photo:", photo);
+    // try {
+    //   const res = await fetch("http://localhost:3000/api/members/new", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //     body: JSON.stringify(newMember),
+    //   });
 
-    try {
-      const res = await fetch("http://localhost:3000/api/members/new", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(newMember),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to add a Member");
-      } else {
-        console.log("Member added successfully");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (!res.ok) {
+    //     throw new Error("Failed to add a Member");
+    //   } else {
+    //     console.log("Member added successfully");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -76,35 +70,8 @@ const BasicInformationForm: React.FC = () => {
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
-          {/* Title */}
-          <div>
-            <label
-              htmlFor="title"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              Title
-            </label>
-            <select
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value as titleType)}
-              name="title"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="Mr.">Mr.</option>
-              <option value="Mrs.">Mrs.</option>
-              <option value="Ms.">Ms.</option>
-              <option value="Miss">Miss</option>
-              <option value="Dr.">Dr.</option>
-              <option value="Prof.">Prof.</option>
-              <option value="Sir">Sir</option>
-              <option value="Madam">Madam</option>
-              <option value="Rev.">Rev.</option>
-            </select>
-          </div>
-
           {/* Full Name */}
-          <div className="col-span-3">
+          <div className="col-span-4">
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Full Name
             </label>
@@ -119,7 +86,6 @@ const BasicInformationForm: React.FC = () => {
 
           {/* Birth Date */}
           <div className="col-span-2">
-            {/* <SelectDate/> */}
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Birth Date
             </label>
@@ -152,53 +118,8 @@ const BasicInformationForm: React.FC = () => {
             </select>
           </div>
 
-          {/* Mobile Number */}
-          <div className="col-span-4 flex items-center space-x-2">
-            <div>
-              <label
-                htmlFor="code"
-                className="block mb-2 text-sm font-medium text-gray-700"
-              >
-                Code
-              </label>
-              <select
-                id="code"
-                name="code"
-                className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option>+251</option>
-              </select>
-            </div>
-            <div className="flex-1">
-              <label className="block mb-2 text-sm font-medium text-gray-700">
-                Mobile Number
-              </label>
-              <input
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                type="tel"
-                placeholder="345 567-23-56"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-          </div>
-
-          {/* Email Address */}
-          <div className="col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Email Address
-            </label>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="youremail@example.com"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-          </div>
-
           {/* Disabilities */}
-          <div className="col-span-8">
+          <div className="col-span-4">
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Do you have disabilities?
             </label>
@@ -227,6 +148,21 @@ const BasicInformationForm: React.FC = () => {
               </label>
             </div>
           </div>
+
+          {/* FamilyId */}
+          <div className="col-span-4">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Family ID
+            </label>
+            <input
+              value={familyID}
+              onChange={(e) => setFamilyID(e.target.value)}
+              type="text"
+              placeholder="Family ID"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
           {/* Description */}
           <div className="md:col-span-4">
             <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -263,83 +199,45 @@ const BasicInformationForm: React.FC = () => {
             </div>
           </div>
 
-          {/* Sub City */}
-          <div className="col-span-2">
-            <label
-              htmlFor="subcity"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              Sub City
-            </label>
-            <select
-              value={subCity}
-              onChange={(e) => setSubCity(e.target.value)}
-              id="subcity"
-              name="subcity"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value="Yeka">Yeka</option>
-              <option value="Arada">Arada</option>
-            </select>
-          </div>
-
-          {/* Woreda */}
-          <div className="col-span-2">
-            <label
-              htmlFor="district"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              Woreda
-            </label>
-            <select
-              value={woreda}
-              onChange={(e) => setWoreda(e.target.value)}
-              id="district"
-              name="district"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-              <option value={11}>11</option>
-              <option value={12}>12</option>
-              <option value={13}>13</option>
-              <option value={14}>14</option>
-            </select>
-          </div>
-
-          {/* House Number */}
-          <div className="col-span-2">
+          {/* Sunday School */}
+          <div className="col-span-3">
             <label className="block mb-2 text-sm font-medium text-gray-700">
-              House Number
+              Sunday School Class
             </label>
             <input
-              value={houseNumber}
-              onChange={(e) => setHouseNumber(e.target.value)}
+              value={sundaySchoolClass}
+              onChange={(e) => setSundaySchoolClass(e.target.value)}
               type="text"
-              placeholder="H Num"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2  focus:ring-blue-500 outline-none"
+              placeholder="Sunday School Class"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
-          {/* Unique Name */}
-          <div className="col-span-2">
+          {/* DVBS Class */}
+          <div className="col-span-3">
             <label className="block mb-2 text-sm font-medium text-gray-700">
-              Unique Name
+              DVBS class
             </label>
             <input
+              value={DVBSClass}
+              onChange={(e) => setDVBSClass(e.target.value)}
               type="text"
-              value={uniqueName}
-              onChange={(e) => setUniqueName(e.target.value)}
-              placeholder="unique name"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="DVBS class"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          </div>
+
+          {/* School Grade */}
+          <div className="col-span-2">
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              School Grade
+            </label>
+            <input
+              value={grade}
+              onChange={(e) => setGrade(e.target.value)}
+              type="text"
+              placeholder="School Grade"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
         </div>
@@ -356,4 +254,5 @@ const BasicInformationForm: React.FC = () => {
     </div>
   );
 };
+
 export default BasicInformationForm;

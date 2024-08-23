@@ -1,15 +1,7 @@
 import mongoose from "mongoose";
 
 const ChildSchema = new mongoose.Schema({
-  firstname: {
-    type: String,
-    required: true,
-  },
-  middlename: {
-    type: String,
-    required: true,
-  },
-  lastname: {
+  fullName: {
     type: String,
     required: true,
   },
@@ -18,18 +10,12 @@ const ChildSchema = new mongoose.Schema({
     required: true,
   },
   birthdate: {
-    date: {
-      type: Number,
-      required: true,
-    },
-    month: {
-      type: Number,
-      required: true,
-    },
-    year: {
-      type: Number,
-      required: true,
-    },
+    type: String,
+    required: true
+  },
+  handicap: {
+    has_handicap: { type: Boolean, required: true },
+    handicap_type: { type: String },
   },
   sunday_school_class: {
     type: String,
