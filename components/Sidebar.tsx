@@ -7,6 +7,14 @@ import { usePathname } from "next/navigation";
 import NestedList from "./NestedList";
 
 const Sidebar: React.FC = () => {
+  const [nestedOpen, setNestedOpen] = useState({
+    membersOpen: false,
+    servicesOpen: false,
+    childrenOpen: false,
+    incomeOpen: false,
+    adminsOpen: false,
+    helpOpen: false,
+  });
   const [membersOpen, setMembersOpen] = useState(false);
   const pathname = usePathname();
 
@@ -22,7 +30,19 @@ const Sidebar: React.FC = () => {
 
       {/* Menu Items */}
       <nav className="flex-1 overflow-y-auto mx-4">
-        <div onClick={() => setMembersOpen(false)}>
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: false,
+              childrenOpen: false,
+              incomeOpen: false,
+              adminsOpen: false,
+              helpOpen: false,
+            })
+          }
+        >
           <ListItem
             href="/"
             icon="dashkey"
@@ -31,42 +51,36 @@ const Sidebar: React.FC = () => {
           />
         </div>
 
-        <div className="" onClick={() => setMembersOpen(!membersOpen)}>
-          {/* <button
-            className="w-full text-left flex items-center justify-between"
-            onClick={() => setMembersOpen(!membersOpen)}
-          > */}
+        <div
+          className=""
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: true,
+              servicesOpen: false,
+              childrenOpen: false,
+              incomeOpen: false,
+              adminsOpen: false,
+              helpOpen: false,
+            })
+          }
+        >
           <ListItem
             href="/members"
             icon="members"
             label="Members"
             isActive={pathname.startsWith("/members")}
             hasChevron
-            isChevOpen={membersOpen}
+            isChevOpen={nestedOpen.membersOpen}
           />
-          {/* <div className="px-4">
-
-            {isChevOpen ? (
-              <FaChevronDown size={12} />
-            ) : (
-              <FaChevronRight size={12} />
-            )}
-            </div> */}
-          {/* </button> */}
         </div>
-        {membersOpen && (
+        {nestedOpen.membersOpen && (
           <div className="pl-12 mt-2">
             <NestedList
               href="/members/addmember"
               icon="addmember"
               label="Add Member"
               isActive={pathname === "/members/addmember"}
-            />
-            <NestedList
-              href="/members/addchild"
-              icon="addmember"
-              label="Add Child"
-              isActive={pathname === "/members/addchild"}
             />
             <NestedList
               href="/members/createfamily"
@@ -82,39 +96,123 @@ const Sidebar: React.FC = () => {
             />
           </div>
         )}
-        <div onClick={() => setMembersOpen(false)}>
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: false,
+              childrenOpen: true,
+              incomeOpen: false,
+              adminsOpen: false,
+              helpOpen: false,
+            })
+          }
+        >
+          <ListItem
+            href="/children"
+            icon="members"
+            label="Children"
+            hasChevron
+            isChevOpen={nestedOpen.childrenOpen}
+            isActive={pathname === "/children"}
+          />
+        </div>
+        {nestedOpen.childrenOpen && (
+          <div className="pl-12 mt-2">
+            <NestedList
+              href="/children/addchild"
+              icon="addmember"
+              label="Add Child"
+              isActive={pathname === "/children/addchild"}
+            />
+          </div>
+        )}
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: true,
+              childrenOpen: false,
+              incomeOpen: false,
+              adminsOpen: false,
+              helpOpen: false,
+            })
+          }
+        >
           <ListItem
             href="/services"
             icon="services"
             label="Services"
             hasChevron
+            isChevOpen={nestedOpen.servicesOpen}
             isActive={pathname === "/services"}
           />
         </div>
-        <div onClick={() => setMembersOpen(false)}>
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: false,
+              childrenOpen: false,
+              incomeOpen: true,
+              adminsOpen: false,
+              helpOpen: false,
+            })
+          }
+        >
           <ListItem
             href="/income"
             icon="income"
             label="Income"
             hasChevron
+            isChevOpen={nestedOpen.incomeOpen}
             isActive={pathname === "/income"}
           />
         </div>
-        <div onClick={() => setMembersOpen(false)}>
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: false,
+              childrenOpen: false,
+              incomeOpen: false,
+              adminsOpen: true,
+              helpOpen: false,
+            })
+          }
+        >
           <ListItem
             href="/admins"
             icon="admin"
             label="Admins"
             hasChevron
+            isChevOpen={nestedOpen.adminsOpen}
             isActive={pathname === "/admins"}
           />
         </div>
-        <div onClick={() => setMembersOpen(false)}>
+        <div
+          onClick={() =>
+            setNestedOpen({
+              ...nestedOpen,
+              membersOpen: false,
+              servicesOpen: false,
+              childrenOpen: false,
+              incomeOpen: false,
+              adminsOpen: false,
+              helpOpen: true,
+            })
+          }
+        >
           <ListItem
             href="/help"
             icon="help"
             label="Help"
             hasChevron
+            isChevOpen={nestedOpen.helpOpen}
             isActive={pathname === "/help"}
           />
         </div>
