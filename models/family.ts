@@ -15,13 +15,8 @@ const FamilySchema = new mongoose.Schema(
         _id: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          refPath: "members.memberType",
         },
-        memberType: {
-          type: String,
-          required: true,
-          enum: ["Member", "Child"],
-        },
+
         isChild: { type: Boolean, required: true },
       },
     ],
@@ -30,6 +25,6 @@ const FamilySchema = new mongoose.Schema(
 );
 
 const Family =
-  mongoose.models.Family || mongoose.model("Family", FamilySchema, "Family");
+  mongoose.models.Family || mongoose.model("Family", FamilySchema, "families");
 
 export default Family;
