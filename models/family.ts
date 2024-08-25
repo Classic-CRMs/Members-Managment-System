@@ -10,19 +10,21 @@ const FamilySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    members: [{
-      _id: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        required: true,
-        refPath: 'members.memberType'
+    members: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          refPath: "members.memberType",
+        },
+        memberType: {
+          type: String,
+          required: true,
+          enum: ["Member", "Child"],
+        },
+        isChild: { type: Boolean, required: true },
       },
-      memberType: {
-        type: String,
-        required: true,
-        enum: ['Member', 'Child']
-      },
-      isChild: { type: Boolean, required: true }
-    }]
+    ],
   },
   { timestamps: true }
 );
