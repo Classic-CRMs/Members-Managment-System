@@ -2,15 +2,20 @@ import { NextResponse } from "next/server";
 import Child from "@/models/child";
 import dbConnect from "@/config/db";
 import mongoose from "mongoose";
-
+import Family from "@/models/family";
 export async function POST(req: Request) {
   try {
     const newChild = await req.json();
     if (!mongoose.Types.ObjectId.isValid(newChild.family_id)) {
-      return NextResponse.json(
-        { error: "Family ID Invalid" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Family ID Invalid" }, { status: 400 });
+    }
+    const familyId = newChild.family_id;
+    const family = await Family.findByIdAndUpdate(
+      { _id: familyId },
+      { $push: { members: { _id: newChild._id, isChild: true } } }
+    );
+    if (!family) {
+      return NextResponse.json({ error: "Family Not Found" }, { status: 404 });
     }
     const newChildObject = new Child(newChild);
 
