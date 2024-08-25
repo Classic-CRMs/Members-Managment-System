@@ -14,7 +14,7 @@ const AgesChart: React.FC = () => {
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-1">ages</h2>
       <p className="text-gray-500 mb-4">Customers that buy products</p>
-      <div className="relative" style={{ width: '200px', height: '200px', margin: '0 auto' }}>
+      <div className="relative" style={{ width: '200px', height: '280px', margin: '0 auto' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
