@@ -1,30 +1,30 @@
 import mongoose from "mongoose";
 
-const FamilySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  parents: {
-    type: [
+const FamilySchema = new mongoose.Schema(
+  {
+    familyName: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    members: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Member",
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
+
+        isChild: { type: Boolean, required: true },
       },
     ],
   },
-  children: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Child",
-      },
-    ],
-  },
-}, { timestamps: true });
+  { timestamps: true }
+);
 
 const Family =
-  mongoose.models.Family || mongoose.model("Family", FamilySchema, "Family");
-
+  mongoose.models.Family || mongoose.model("Family", FamilySchema, "families");
 
 export default Family;
