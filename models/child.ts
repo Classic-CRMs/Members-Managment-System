@@ -24,10 +24,6 @@ const ChildSchema = new mongoose.Schema({
   image: {type: String, required: true},
   dvbs_class: { type: String, required: true },
   grade: { type: String, required: true },
-  family_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    // ref: "Family",
-  },
 }, { timestamps: true });
 
 const Child =
