@@ -65,3 +65,57 @@ export const validator = ({
     errors,
   };
 };
+
+
+export const validator2 = ({
+  fullName,
+  birthDate,
+  familyID,
+  sundaySchoolClass,
+  dvbsClass,
+  grade,
+  disabilities,
+  description,
+  photo,
+}: any): { isValid: boolean; errors: errorTypes } => {
+  const errors = {} as errorTypes;
+  //check required fields
+  if (!fullName.trim()) {
+    errors["fullName"] = "Full name is required";
+  }
+  if (!birthDate.trim()) {
+    errors["birthDate"] = "Birth Date is required";
+  }
+  if (!sundaySchoolClass.trim()) {
+    errors["sundaySchoolClass"] = "sunday school class is required";
+  }
+  if (!dvbsClass.trim()) {
+    errors["dvbsClass"] = "DVBS class is required";
+  }
+  if (!grade.trim()) {
+    errors["grade"] = "school grade is required";
+  }
+  if (!photo) {
+    errors["photo"] = "Photo is required";
+  }
+
+  //family id validation: mongodb id
+  const familyIdRegex = /^[0-9a-fA-F]{24}$/;
+  if (familyID.trim() && !familyIdRegex.test(familyID)) {
+    errors["familyID"] = "Invalid family ID format";
+  }
+  //birth date validation
+  const currentDate = new Date();
+  const selectedDate = new Date(birthDate);
+  if (selectedDate > currentDate) {
+    errors["birthDate"] = "Birth date cannot be in the future";
+  }
+  if (disabilities && !description.trim()) {
+    errors["handicap"] = "Description is required when disabilites is selected";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+}

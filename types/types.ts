@@ -68,4 +68,8 @@ export interface errorTypes {
   houseNumber?:string;
   handicap?:string;
   photo?:string;
+  sundaySchoolClass?:string;
+  dvbsClass?:string;
+  grade?:string;
+  familyID?:string;
 }

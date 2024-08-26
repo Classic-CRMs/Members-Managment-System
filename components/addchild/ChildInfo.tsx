@@ -1,10 +1,12 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
+// import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
-import { childType, genderType } from "@/types/types";
+import { childType, genderType, memberType, titleType } from "@/types/types";
 import uploadImage from "@/utils/imageUploader";
-
+import {  validator2 } from "@/utils/validator";
 const BasicInformationForm: React.FC = () => {
+  //   const router = useRouter();
   const [fullName, setFullName] = useState<string>("");
   const [birthDate, setBirthDate] = useState<string>("");
   const [gender, setGender] = useState<genderType>("Male");
@@ -15,6 +17,7 @@ const BasicInformationForm: React.FC = () => {
   const [DVBSClass, setDVBSClass] = useState<string>("");
   const [grade, setGrade] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [showErrors, setShowErrors] = useState<any>({});
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -30,11 +33,27 @@ const BasicInformationForm: React.FC = () => {
     },
     maxFiles: 1,
   });
-  
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { isValid, errors } = validator2({
+      fullName,
+      birthDate,
+      familyID,
+      disabilities,
+      description,
+      sundaySchoolClass,
+      dvbsClass: DVBSClass,
+      grade,
+      photo,
+    });
+
+    if (!isValid) {
+      setShowErrors(errors);
+      console.log(showErrors);
+      return;
+    }
     const image = await uploadImage(photo!);
+
     const newChild: childType = {
       fullname: fullName,
       birthdate: birthDate,
@@ -75,7 +94,11 @@ const BasicInformationForm: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
           {/* Full Name */}
           <div className="col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label
+              className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.fullName && "text-red-500"
+              }`}
+            >
               Full Name
             </label>
             <input
@@ -83,13 +106,25 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFullName(e.target.value)}
               type="text"
               placeholder="Full Name"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.fullName && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
             />
+            {showErrors.fullName && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.fullName}
+              </p>
+            )}
           </div>
 
           {/* Birth Date */}
           <div className="col-span-2">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            {/* <SelectDate/> */}
+            <label
+              className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.birthDate && "text-red-500"
+              }`}
+            >
               Birth Date
             </label>
             <input
@@ -97,15 +132,22 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setBirthDate(e.target.value)}
               type="date"
               placeholder="Birth Date"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.birthDate && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
             />
+            {showErrors.birthDate && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.birthDate}
+              </p>
+            )}
           </div>
 
           {/* Gender */}
           <div className="col-span-2 relative inline-block">
             <label
               htmlFor="gender"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block my-2 text-sm font-medium text-gray-700"
             >
               Gender
             </label>
@@ -132,7 +174,7 @@ const BasicInformationForm: React.FC = () => {
 
           {/* Disabilities */}
           <div className="col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className="block my-2 text-sm font-medium text-gray-700">
               Do you have disabilities?
             </label>
             <div className="flex items-center space-x-4">
@@ -161,9 +203,11 @@ const BasicInformationForm: React.FC = () => {
             </div>
           </div>
 
-          {/* FamilyId */}
+              {/* FamilyId */}
           <div className="col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.familyID && "text-red-500"
+              }`}>
               Family ID
             </label>
             <input
@@ -171,49 +215,73 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFamilyID(e.target.value)}
               type="text"
               placeholder="Family ID"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
-            />
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.familyID && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+            />{showErrors.familyID && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.familyID}
+              </p>
+            )}
           </div>
 
           {/* Description */}
           <div className="md:col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add some description of the project"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              rows={4}
-            ></textarea>
+            {disabilities && (
+              <>
+                <label
+                  className={`block my-2 text-sm font-medium text-gray-700 ${
+                    showErrors.handicap && "text-red-500"
+                  }`}
+                >
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Add some description of the project"
+                  className={`block w-full px-4 py-2 border ${
+                    showErrors.handicap && "border-red-500"
+                  } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+                  rows={4}
+                ></textarea>
+                {showErrors.handicap && (
+                  <p className="text-red-500 text-sm ml-1 mt-1">
+                    {showErrors.handicap}
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           {/* Upload Photo - Updated to use react-dropzone */}
           <div className="md:col-span-4">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${showErrors.photo && "text-red-500"}`}>
               Upload Photo
             </label>
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed rounded-lg p-4 h-28 flex justify-center items-center text-center cursor-pointer ${
+              className={`border-2 border-dashed rounded-lg p-4 h-28 flex justify-center items-center text-center cursor-pointer ${showErrors.photo && "border-red-500"} ${
                 isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
               }`}
+
             >
               <input {...getInputProps()} />
               {photo ? (
                 <p>Photo selected: {photo.name}</p>
-              ) : isDragActive ? (
-                <p>Drop the photo here ...</p>
-              ) : (
-                <p>Drag n drop a photo here, or click to select</p>
-              )}
+                ) : isDragActive ? (
+                  <p>Drop the photo here ...</p>
+                  ) : (
+                    <p>Drag n drop a photo here, or click to select</p>
+                    )}
             </div>
+                    {showErrors.photo && <p className="text-red-500 ml-2 mt-1">{showErrors.photo}</p>}
           </div>
 
-          {/* Sunday School */}
           <div className="col-span-3">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.sundaySchoolClass && "text-red-500"
+              }`}>
               Sunday School Class
             </label>
             <input
@@ -221,13 +289,21 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setSundaySchoolClass(e.target.value)}
               type="text"
               placeholder="Sunday School Class"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
-            />
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.sundaySchoolClass && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+            />{showErrors.sundaySchoolClass && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.sundaySchoolClass}
+              </p>
+            )}
           </div>
 
           {/* DVBS Class */}
           <div className="col-span-3">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.dvbsClass && "text-red-500"
+              }`}>
               DVBS class
             </label>
             <input
@@ -235,13 +311,21 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setDVBSClass(e.target.value)}
               type="text"
               placeholder="DVBS class"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
-            />
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.dvbsClass && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+            />{showErrors.dvbsClass && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.dvbsClass}
+              </p>
+            )}
           </div>
 
           {/* School Grade */}
           <div className="col-span-2">
-            <label className="block mb-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.grade && "text-red-500"
+              }`}>
               School Grade
             </label>
             <input
@@ -249,8 +333,14 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setGrade(e.target.value)}
               type="text"
               placeholder="School Grade"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
-            />
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.grade && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+            />{showErrors.grade && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.grade}
+              </p>
+            )}
           </div>
         </div>
 
@@ -266,5 +356,4 @@ const BasicInformationForm: React.FC = () => {
     </div>
   );
 };
-
 export default BasicInformationForm;
