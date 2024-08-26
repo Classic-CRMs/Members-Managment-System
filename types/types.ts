@@ -57,3 +57,15 @@ export interface childType {
   grade: string;
   image: string | undefined;
 }
+
+export interface errorTypes {
+  fullName?:string;
+  birthDate?:string;
+  mobileNumber?:string;
+  email?:string;
+  subCity?:string;
+  woreda?:string;
+  houseNumber?:string;
+  handicap?:string;
+  photo?:string;
+}

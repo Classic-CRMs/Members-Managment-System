@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { genderType, memberType, titleType } from "@/types/types";
 import uploadImage from "@/utils/imageUploader";
+import { validator } from "@/utils/validator";
 const BasicInformationForm: React.FC = () => {
   //   const router = useRouter();
   const [title, setTitle] = useState<titleType>("Mr.");
@@ -19,6 +20,7 @@ const BasicInformationForm: React.FC = () => {
   const [houseNumber, setHouseNumber] = useState<string>("");
   const [uniqueName, setUniqueName] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
+  const [showErrors, setShowErrors] = useState<any>({});
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -36,8 +38,27 @@ const BasicInformationForm: React.FC = () => {
   });
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const { isValid, errors } = validator({
+      fullName,
+      birthDate,
+      mobileNumber,
+      email,
+      subCity,
+      woreda,
+      houseNumber,
+      disabilities,
+      description,
+      photo,
+    });
+
+    if (!isValid) {
+      setShowErrors(errors);
+      console.log(showErrors);
+      return;
+    }
     const image = await uploadImage(photo!);
-  
+
     const newMember: memberType = {
       title,
       fullname: fullName,
@@ -53,7 +74,6 @@ const BasicInformationForm: React.FC = () => {
         neighborhood: uniqueName,
       },
     };
-
     try {
       const res = await fetch("http://localhost:3000/api/members/new", {
         method: "POST",
@@ -119,7 +139,11 @@ const BasicInformationForm: React.FC = () => {
 
           {/* Full Name */}
           <div className="col-span-3">
-            <label className="block my-2 text-sm font-medium text-gray-700">
+            <label
+              className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.fullName && "text-red-500"
+              }`}
+            >
               Full Name
             </label>
             <input
@@ -127,14 +151,25 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setFullName(e.target.value)}
               type="text"
               placeholder="Full Name"
-              className="block w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.fullName && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
             />
+            {showErrors.fullName && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.fullName}
+              </p>
+            )}
           </div>
 
           {/* Birth Date */}
           <div className="col-span-2">
             {/* <SelectDate/> */}
-            <label className="block my-2 text-sm font-medium text-gray-700">
+            <label
+              className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.birthDate && "text-red-500"
+              }`}
+            >
               Birth Date
             </label>
             <input
@@ -142,8 +177,15 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setBirthDate(e.target.value)}
               type="date"
               placeholder="Birth Date"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.birthDate && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
             />
+            {showErrors.birthDate && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.birthDate}
+              </p>
+            )}
           </div>
 
           {/* Gender */}
@@ -176,7 +218,7 @@ const BasicInformationForm: React.FC = () => {
           </div>
 
           {/* Mobile Number */}
-          <div className="col-span-4 flex items-center space-x-2">
+          <div className="col-span-4 flex items-top space-x-2">
             <div className="relative inline-block">
               <label
                 htmlFor="code"
@@ -202,22 +244,37 @@ const BasicInformationForm: React.FC = () => {
               </div>
             </div>
             <div className="flex-1">
-              <label className="block my-2 text-sm font-medium text-gray-700">
+              <label
+                className={`block my-2 text-sm font-medium text-gray-700 ${
+                  showErrors.mobileNumber && "text-red-500"
+                }`}
+              >
                 Mobile Number
               </label>
               <input
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
                 type="tel"
-                placeholder="345 567-23-56"
-                className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
-                />
+                placeholder="0912345678"
+                className={`block w-full h-12 px-4 py-2 border ${
+                  showErrors.mobileNumber && "border-red-500"
+                } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+              />
+              {showErrors.mobileNumber && (
+                <p className="text-red-500 text-sm ml-1 mt-1">
+                  {showErrors.mobileNumber}
+                </p>
+              )}
             </div>
           </div>
 
           {/* Email Address */}
           <div className="col-span-4">
-            <label className="block my-2 text-sm font-medium text-gray-700">
+            <label
+              className={`block my-2 text-sm font-medium text-gray-700 ${
+                showErrors.email && "text-red-500"
+              }`}
+            >
               Email Address
             </label>
             <input
@@ -225,8 +282,15 @@ const BasicInformationForm: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="youremail@example.com"
-              className="block appearance-none w-full h-12 px-4 py-2 border shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none"
+              className={`block w-full h-12 px-4 py-2 border ${
+                showErrors.email && "border-red-500"
+              } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
             />
+            {showErrors.email && (
+              <p className="text-red-500 text-sm ml-1 mt-1">
+                {showErrors.email}
+              </p>
+            )}
           </div>
 
           {/* Disabilities */}
@@ -261,38 +325,55 @@ const BasicInformationForm: React.FC = () => {
           </div>
           {/* Description */}
           <div className="md:col-span-4">
-            <label className="block my-2 text-sm font-medium text-gray-700">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Add some description of the project"
-              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              rows={4}
-            ></textarea>
+            {disabilities && (
+              <>
+                <label
+                  className={`block my-2 text-sm font-medium text-gray-700 ${
+                    showErrors.handicap && "text-red-500"
+                  }`}
+                >
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Add some description of the project"
+                  className={`block w-full px-4 py-2 border ${
+                    showErrors.handicap && "border-red-500"
+                  } shadow-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:shadow-sm outline-none`}
+                  rows={4}
+                ></textarea>
+                {showErrors.handicap && (
+                  <p className="text-red-500 text-sm ml-1 mt-1">
+                    {showErrors.handicap}
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           {/* Upload Photo - Updated to use react-dropzone */}
           <div className="md:col-span-4">
-            <label className="block my-2 text-sm font-medium text-gray-700">
+            <label className={`block my-2 text-sm font-medium text-gray-700 ${showErrors.photo && "text-red-500"}`}>
               Upload Photo
             </label>
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed rounded-lg p-4 h-28 flex justify-center items-center text-center cursor-pointer ${
+              className={`border-2 border-dashed rounded-lg p-4 h-28 flex justify-center items-center text-center cursor-pointer ${showErrors.photo && "border-red-500"} ${
                 isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
               }`}
+
             >
               <input {...getInputProps()} />
               {photo ? (
                 <p>Photo selected: {photo.name}</p>
-              ) : isDragActive ? (
-                <p>Drop the photo here ...</p>
-              ) : (
-                <p>Drag n drop a photo here, or click to select</p>
-              )}
+                ) : isDragActive ? (
+                  <p>Drop the photo here ...</p>
+                  ) : (
+                    <p>Drag n drop a photo here, or click to select</p>
+                    )}
             </div>
+                    {showErrors.photo && <p className="text-red-500 ml-2 mt-1">{showErrors.photo}</p>}
           </div>
 
           {/* Sub City */}
