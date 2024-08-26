@@ -48,7 +48,7 @@ const ServicesChart: React.FC = () => {
           <option>Quarterly</option>
         </select>
       </div>
-      <div className="relative" style={{ height: '200px' }}>
+      <div className="relative" style={{ height: '284px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <XAxis dataKey="month" axisLine={false} tickLine={false} />
