@@ -221,7 +221,7 @@ const Sidebar: React.FC = () => {
       {/* User Profile */}
       <div className="p-4 border-t flex items-center">
         <Image
-          src="/member.svg"
+          src="/members.svg"
           width={32}
           height={32}
           alt="User"
